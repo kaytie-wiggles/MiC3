@@ -1,0 +1,42 @@
+from datetime import datetime
+from flask import Flask, request, jsonify
+import os
+
+app = Flask(__name__)
+
+def calc_time_diff(t1, t2):
+    # timestamp format
+    dt_format = "%a %d %b %Y %H:%M:%S %z"
+    # Convert the timestamps to datetime objects
+    timestamp1 = datetime.strptime(t1, dt_format)
+    timestamp2 = datetime.strptime(t2, dt_format)
+    
+    # Calculate the absolute difference in seconds
+    abs_time_diff = abs((timestamp1 - timestamp2).total_seconds())
+    return int(abs_time_diff)
+
+
+@app.route('/timestamp_difference', methods=['POST'])
+def timestamp_difference():
+    
+    data = request.get_json()
+    timestamps = data.get("data", [])
+    
+    list_results = []
+    
+    for T in timestamps:
+        t1, t2 = T
+        abs_difference = calc_time_diff(t1, t2)
+        list_results.append(str(abs_difference))
+    
+    # return jsonify(list_results)
+    
+            # Add node ID to the response
+    node_id = os.getenv('NODE_ID', 'none')
+    return jsonify({"id": node_id, "result": list_results})
+
+
+#     return jsonify(list_results), 200
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)
+    

@@ -1,0 +1,27 @@
+from datetime import datetime
+
+def calc_time_diff(t1, t2):
+    # timestamp format
+    dt_format = "%a %d %b %Y %H:%M:%S %z"
+    # Convert the timestamps to datetime objects
+    timestamp1 = datetime.strptime(t1, dt_format)
+    timestamp2 = datetime.strptime(t2, dt_format)
+    
+    # Calculate the absolute difference in seconds
+    abs_time_diff = abs((timestamp1 - timestamp2).total_seconds())
+    return int(abs_time_diff)
+
+# Input number of testcases
+T = int(input("Please enter number of test cases: "))
+results = []
+
+#loop through number of test cases inputted
+for _ in range(T):
+    timestamp1 = input("Please enter first timestamp: ")
+    timestamp2 = input("Please enter second timestamp: ")
+    
+    result = calc_time_diff(timestamp1, timestamp2)
+    results.append(result)
+
+for result in results:
+    print(result)
