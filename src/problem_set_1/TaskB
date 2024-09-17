@@ -29,14 +29,12 @@ def timestamp_difference():
         abs_difference = calc_time_diff(t1, t2)
         list_results.append(str(abs_difference))
     
-    # return jsonify(list_results)
-    
-            # Add node ID to the response
-    node_id = os.getenv('NODE_ID', 'none')
-    return jsonify({"id": node_id, "result": list_results})
+    # return jsonify(list_results),200
+
+    # return jsonify({"id": node_id, "result": list_results})
 
 
-#     return jsonify(list_results), 200
-if __name__ == '__main__':
+    return jsonify(list_results)
+if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001)
     
