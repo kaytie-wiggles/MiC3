@@ -1,8 +1,0 @@
-# Dockerfile
-FROM python:3.9-slim
-WORKDIR /app
-COPY TaskB.py .
-RUN pip install flask
-EXPOSE 5001
-ENV NODE_ID=$NODE_ID
-CMD ["python", "TaskB.py"]
